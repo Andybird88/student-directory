@@ -22,6 +22,16 @@ def printBeginWithLetter(names,letter)
   }
 end
 
+def nameShorterThan(names,short)
+  puts ""
+  puts "Students with a name shorter than #{short} characters:"
+  names.each_with_index { |stud, index|
+    if "#{stud[:name]}".length < 12
+    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
+    end
+  }
+end
+
 
 def print_footer(names)
   #Finally we print the total
@@ -52,6 +62,7 @@ print_header
 print(students)
 print_footer(students)
 printBeginWithLetter(students,"D")
+nameShorterThan(students,12)
 
 
 
