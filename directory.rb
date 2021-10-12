@@ -1,8 +1,8 @@
 
 def print_header
 #First print a list of villans to screen.
-puts "The students of Villans Academy"
-puts "------------"
+puts "The students of Villans Academy".center(50)
+puts "------------".center(50)
 end
 
 def print(names)
@@ -53,7 +53,7 @@ def input_students
   
   name = gets.chomp
   
-  puts "Please enter a hobbie forthe current student"
+  puts "Please enter a hobbie for the current student"
   hobbies = gets.chomp
   puts "Please enter the height of the student"
   height = gets.chomp
@@ -85,9 +85,6 @@ print_header
 print(students)
 print_footer(students)
 printBeginWithLetter(students,"D")
-nameShorterThan(students,12)
-
-
 
 
 
