@@ -1,3 +1,4 @@
+
 def print_header
 #First print a list of villans to screen.
 puts "The students of Villans Academy"
@@ -10,12 +11,13 @@ def print(names)
   }
 end
 
+
 def print_footer(names)
   #Finally we print the total
   puts "Overall, we have #{names.count} great students"
 end
 
-def input_students
+def input_students(letter)
   
   puts "Please enter the names of the students"
   puts "To finish hit return twice"
@@ -23,8 +25,10 @@ def input_students
   name = gets.chomp
   students = []
   while !name.empty? do
+    if name[0] == letter
     students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students."
+    end
+    puts "We have #{students.count} students beging with '#{letter}''."
     name = gets.chomp
   end
   
@@ -32,11 +36,10 @@ def input_students
   
 end
 
-students = input_students
+students = input_students("D")
 print_header
 print(students)
 print_footer(students)
-
 
 
 
