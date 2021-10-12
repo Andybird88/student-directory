@@ -10,7 +10,7 @@ def print(names)
   index = 0
   
   while true
-    puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort)"
+    puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort) Hobbies: #{names[index][:hobbies]}, Place of Birth: #{names[index][:placeOfBirth]}, Height: #{names[index][:height]}cm"
     index += 1 
     length -= 1
     if length == 0
@@ -49,16 +49,31 @@ end
 def input_students
   
   puts "Please enter the names of the students"
-  puts "To finish hit return twice"
+  puts "To finish hit return thrice"
   
   name = gets.chomp
+  
+  puts "Please enter a hobbie forthe current student"
+  hobbies = gets.chomp
+  puts "Please enter the height of the student"
+  height = gets.chomp
+  puts "Please enter the birth place of the student"
+  pob = gets.chomp
+  
   students = []
   while !name.empty? do
     
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, hobbies: hobbies, height: height, placeOfBirth: pob }
   
     puts "We have #{students.count} students."
     name = gets.chomp
+    puts "Please enter a hobbie for the current student"
+    hobbies = gets.chomp
+    puts "Please enter the height of the student"
+    height = gets.chomp
+    puts "Please enter the birth place of the student"
+    pob = gets.chomp
+    
   end
   
   students
