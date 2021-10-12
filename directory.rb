@@ -6,7 +6,8 @@ puts "------------".center(50)
 end
 
 def print(names)
-  length = names.count
+  
+  length = names.length
   index = 0
   
   while true
@@ -43,7 +44,11 @@ end
 
 def print_footer(names)
   #Finally we print the total
-  puts "Overall, we have #{names.count} great students"
+  if names.count == 1
+    puts "Overall, we have #{names.count} great student"
+  else
+    puts "Overall, we have #{names.count} great students"
+  end
 end
 
 def input_students
@@ -52,39 +57,66 @@ def input_students
   puts "To finish hit return thrice"
   
   name = gets.chomp
-  
-  puts "Please enter a hobbie for the current student"
-  hobbies = gets.chomp
-  puts "Please enter the height of the student"
-  height = gets.chomp
-  puts "Please enter the birth place of the student"
-  pob = gets.chomp
-  
   students = []
+  
   while !name.empty? do
-    
-    students << {name: name, cohort: :november, hobbies: hobbies, height: height, placeOfBirth: pob }
   
-    puts "We have #{students.count} students."
+    puts "Enter the starting month of the students cohort"
+    cohort = gets.chomp.to_s
+  
+
+  
+    while true
+     
+      if cohort == ""
+        cohort = "november".to_sym
+        break
+      end
+      if cohort != "january" && cohort != "february" && cohort != "march" && cohort != "april" && cohort != "may" && cohort != "june" && cohort != "july" && cohort != "august" && cohort != "september" && cohort != "october" && cohort != "november" && cohort != "december"
+        puts "please enter a valid month"
+         cohort = gets.chomp
+      else
+        cohort = cohort.to_sym
+        puts "Please enter a hobbie for the current student"
+        hobbies = gets.chomp
+        puts "Please enter the height of the student"
+        height = gets.chomp
+        puts "Please enter the birth place of the student"
+        pob = gets.chomp
+        
+        break
+      end
+    end
+    
+    students << {name: name, cohort: cohort, hobbies: hobbies, height: height, placeOfBirth: pob }
+  
+    if students.count == 1
+    puts "We have #{students.count} student."
+    else
+    puts "We have #{students.count} students"
+    end
     name = gets.chomp
-    puts "Please enter a hobbie for the current student"
-    hobbies = gets.chomp
-    puts "Please enter the height of the student"
-    height = gets.chomp
-    puts "Please enter the birth place of the student"
-    pob = gets.chomp
     
+  
   end
-  
   students
-  
 end
 
+
+def printbycohort(names, month)
+  names.each_with_index {|stud, index|
+    if stud[:cohort] == month.to_sym
+      puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort) Hobbies: #{names[index][:hobbies]}, Place of Birth: #{names[index][:placeOfBirth]}, Height: #{names[index][:height]}cm"
+    end
+  }
+  
+end
 students = input_students
 print_header
 print(students)
 print_footer(students)
-printBeginWithLetter(students,"D")
+#printBeginWithLetter(students,"D")
+#printbycohort(students, "january")
 
 
 
