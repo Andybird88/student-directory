@@ -7,7 +7,18 @@ end
 
 def print(names)
   names.each_with_index { |stud, index|
-    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"    
+    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
+    
+  }
+end
+
+def printBeginWithLetter(names,letter)
+  puts ""
+  puts "Students begining with #{letter}:"
+  names.each_with_index { |stud, index|
+    if "#{stud[:name]}"[0] == letter
+    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
+    end
   }
 end
 
@@ -17,7 +28,7 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
-def input_students(letter)
+def input_students
   
   puts "Please enter the names of the students"
   puts "To finish hit return twice"
@@ -25,10 +36,10 @@ def input_students(letter)
   name = gets.chomp
   students = []
   while !name.empty? do
-    if name[0] == letter
+    
     students << {name: name, cohort: :november}
-    end
-    puts "We have #{students.count} students beging with '#{letter}''."
+  
+    puts "We have #{students.count} students."
     name = gets.chomp
   end
   
@@ -36,10 +47,11 @@ def input_students(letter)
   
 end
 
-students = input_students("D")
+students = input_students
 print_header
 print(students)
 print_footer(students)
+printBeginWithLetter(students,"D")
 
 
 
