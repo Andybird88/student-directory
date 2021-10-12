@@ -9,7 +9,9 @@ def print(names)
   
   length = names.length
   index = 0
-  
+  if names == []
+    puts "No students are cuurentlyy enrolled in the academy"
+  else
   while true
     puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort) Hobbies: #{names[index][:hobbies]}, Place of Birth: #{names[index][:placeOfBirth]}, Height: #{names[index][:height]}cm"
     index += 1 
@@ -18,7 +20,7 @@ def print(names)
       break
     end
   end
-end
+
 
 def printBeginWithLetter(names,letter)
   puts ""
@@ -38,6 +40,8 @@ def nameShorterThan(names,short)
     puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
     end
   }
+end
+  end
 end
 
 
