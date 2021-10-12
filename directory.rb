@@ -6,10 +6,18 @@ puts "------------"
 end
 
 def print(names)
-  names.each_with_index { |stud, index|
-    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
-    
-  }
+  length = names.count
+  index = 0
+  
+  while true
+    puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort)"
+    index += 1 
+    length -= 1
+    if length == 0
+      break
+    end
+  
+  end
 end
 
 def printBeginWithLetter(names,letter)
