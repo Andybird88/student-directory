@@ -1,8 +1,8 @@
 
 def print_header
-#First print a list of villans to screen.
-puts "The students of Villans Academy".center(50)
-puts "------------".center(50)
+  #First print a list of villans to screen.
+  puts "The students of Villans Academy".center(50)
+  puts "------------".center(50)
 end
 
 def print(names)
@@ -17,7 +17,6 @@ def print(names)
     if length == 0
       break
     end
-  
   end
 end
 
@@ -56,7 +55,8 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish hit return thrice"
   
-  name = gets.chomp
+  name = gets
+  name = name[0,name.length-1]
   students = []
   
   while !name.empty? do
@@ -69,9 +69,9 @@ def input_students
     while true
      
       if cohort == ""
-        cohort = "november".to_sym
-        break
+        cohort = "november"
       end
+      
       if cohort != "january" && cohort != "february" && cohort != "march" && cohort != "april" && cohort != "may" && cohort != "june" && cohort != "july" && cohort != "august" && cohort != "september" && cohort != "october" && cohort != "november" && cohort != "december"
         puts "please enter a valid month"
          cohort = gets.chomp
@@ -79,10 +79,19 @@ def input_students
         cohort = cohort.to_sym
         puts "Please enter a hobbie for the current student"
         hobbies = gets.chomp
+        if hobbies == ""
+          hobbies = "n/a"
+        end
         puts "Please enter the height of the student"
         height = gets.chomp
+        if height == ""
+          height = "n/a"
+        end
         puts "Please enter the birth place of the student"
         pob = gets.chomp
+        if pob == ""
+          pob = "n/a"
+        end
         
         break
       end
