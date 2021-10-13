@@ -100,7 +100,7 @@ def input_students
       end
     end
     
-    @students << {name: name, cohort: cohort, hobbies: hobbies, height: height, placeOfBirth: pob }
+    add_students(name,cohort,hobbies,height,pob)
   
     if @students.count == 1
     puts "We have #{@students.count} student."
@@ -175,7 +175,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each{|line|
     name, cohort, hobbies, placeOfBirth, height = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, placeOfBirth: placeOfBirth, height: height}
+    add_students(name,cohort,hobbies,placeOfBirth,height)
   }
   file.close
 end
@@ -192,5 +192,8 @@ def try_load_students
   end
 end
 
+def add_students(name,cohort,hobbies,placeOfBirth, height)
+ @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, placeOfBirth: placeOfBirth, height: height}
+end
 try_load_students
 interactive_menu
