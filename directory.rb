@@ -7,7 +7,6 @@ def print_header
 end
 
 def print_student_list
-  
   length = @students.length
   index = 0
   if @students == []
@@ -59,7 +58,7 @@ end
 
 def input_students
   puts "Please enter the names of the students"
-  puts "To finish hit return thrice"
+  puts "To finish hit return"
   
   name = STDIN.gets
   name = name[0,name.length-1]
@@ -150,8 +149,12 @@ def process(selction)
       show_students
     when "3"
       save_students
+      puts "These students have been saved"
+      puts ""
     when "4"
       load_students
+      puts "students loaded from file"
+      puts ""
     when "9"
       exit
     else
