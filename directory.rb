@@ -13,7 +13,7 @@ def print(names)
     puts "No students are cuurentlyy enrolled in the academy"
   else
   while true
-    puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort) Hobbies: #{names[index][:hobbies]}, Place of Birth: #{names[index][:placeOfBirth]}, Height: #{names[index][:height]}cm"
+    puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort) Hobbies: #{names[index][:hobbies]}, Place of Birth: #{names[index][:placeOfBirth]}, Height: #{names[index][:height]} cm"
     index += 1 
     length -= 1
     if length == 0
@@ -122,15 +122,34 @@ def printbycohort(names, month)
       puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort) Hobbies: #{names[index][:hobbies]}, Place of Birth: #{names[index][:placeOfBirth]}, Height: #{names[index][:height]}cm"
     end
   }
-  
 end
-students = input_students
-print_header
-print(students)
-print_footer(students)
-#printBeginWithLetter(students,"D")
-#printbycohort(students, "january")
 
+def interactive_menu
+  students = []
+  
+  loop do
+  #Print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit" #9 as will add more items
+  
+  #Read the input and save it into a variable
+    selection = gets.chomp
+  #Do what the user has asked
+    case selection
+      when "1"
+        students = input_students #input the students
+      when "2"
+        print_header
+        print(students)
+        print_footer(students) #Show the students
+      when "9"
+        exit #This will terminate the program
+      else
+        puts "I don't know what you mean, try again"
+    end
+  
+  end
+end
 
-
-
+interactive_menu
