@@ -130,8 +130,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to a csv file"
+  puts "4. Load the list from a csv file"
   puts "9. Exit"
 end
 
@@ -168,23 +168,23 @@ end
 
 
 def save_students(fname)
-  file = File.open(fname, "w")
+  File.open(fname, "w"){|file|
   
   @students.each {|student|
     student_data = [student[:name], student[:cohort], student [:hobbies], student[:placeOfBirth], student[:height]]
     csv_line = student_data.join(",")
     file.puts csv_line
   }
-  file.close
+  }
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  File.open(filename, "r") {|file|
   file.readlines.each{|line|
     name, cohort, hobbies, placeOfBirth, height = line.chomp.split(",")
     add_students(name,cohort,hobbies,placeOfBirth,height)
   }
-  file.close
+  }
 end
 
 def try_load_students
