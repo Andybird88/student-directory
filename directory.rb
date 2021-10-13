@@ -48,11 +48,13 @@ end
 
 def print_footer
   #Finally we print the total
+  puts ""
   if @students.count == 1
     puts "Overall, we have #{@students.count} great student"
   else
     puts "Overall, we have #{@students.count} great students"
   end
+  puts ""
 end
 
 def input_students
@@ -130,6 +132,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit"
 end
 
@@ -147,6 +150,8 @@ def process(selction)
       show_students
     when "3"
       save_students
+    when "4"
+      load_students
     when "9"
       exit
     else
@@ -162,6 +167,15 @@ def save_students
     student_data = [student[:name], student[:cohort], student [:hobbies], student[:placeOfBirth], student[:height]]
     csv_line = student_data.join(",")
     file.puts csv_line
+  }
+  file.close
+end
+
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines.each{|line|
+    name, cohort, hobbies, placeOfBirth, height = line.chomp.split(",")
+    @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, placeOfBirth: placeOfBirth, height: height}
   }
   file.close
 end
