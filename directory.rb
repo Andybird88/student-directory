@@ -148,11 +148,15 @@ def process(selction)
     when "2"
       show_students
     when "3"
-      save_students
+      puts "please enter a file name followed by .csv"
+      fname = gets.chomp
+      save_students(fname)
       puts "These students have been saved"
       puts ""
     when "4"
-      load_students
+      puts "Please enter a file name to load followed by its extension"
+      fname = gets.chomp
+      load_students(fname)
       puts "students loaded from file"
       puts ""
     when "9"
@@ -163,8 +167,8 @@ def process(selction)
 end
 
 
-def save_students
-  file = File.open("students.csv", "w")
+def save_students(fname)
+  file = File.open(fname, "w")
   
   @students.each {|student|
     student_data = [student[:name], student[:cohort], student [:hobbies], student[:placeOfBirth], student[:height]]
