@@ -61,12 +61,12 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish hit return thrice"
   
-  name = gets
+  name = STDIN.gets
   name = name[0,name.length-1]
   
   while !name.empty? do
     puts "Enter the starting month of the students cohort"
-    cohort = gets.chomp.to_s
+    cohort = STDIN.gets.chomp.to_s
   
     while true
      
@@ -76,22 +76,22 @@ def input_students
       
       if cohort != "january" && cohort != "february" && cohort != "march" && cohort != "april" && cohort != "may" && cohort != "june" && cohort != "july" && cohort != "august" && cohort != "september" && cohort != "october" && cohort != "november" && cohort != "december"
         puts "please enter a valid month"
-        cohort = gets.chomp
+        cohort = STDIN.gets.chomp
       else
         cohort = cohort.to_sym
         puts "Please enter a hobbie for the current student"
-        hobbies = gets.chomp
+        hobbies = STDIN.gets.chomp
       
       if hobbies == ""
         hobbies = "n/a"
       end
       puts "Please enter the height of the student"
-      height = gets.chomp
+      height = STDIN.gets.chomp
       if height == ""
         height = "n/a"
       end
       puts "Please enter the birth place of the student"
-      pob = gets.chomp
+      pob = STDIN.gets.chomp
       if pob == ""
         pob = "n/a"
       end
@@ -107,7 +107,7 @@ def input_students
     else
     puts "We have #{@students.count} students"
     end
-    name = gets.chomp
+    name = STDIN.gets.chomp
     
   end
 end
@@ -124,7 +124,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -171,8 +171,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each{|line|
     name, cohort, hobbies, placeOfBirth, height = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, placeOfBirth: placeOfBirth, height: height}
@@ -180,4 +180,17 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry #{filename} does not exist"
+    exit
+  end
+end
+
+try_load_students
 interactive_menu
