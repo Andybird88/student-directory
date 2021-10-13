@@ -182,18 +182,20 @@ end
 
 def try_load_students
   filename = ARGV.first
-  return if filename.nil?
+  filename = "students.csv" if filename.nil?
   if File.exists?(filename)
     load_students(filename)
     puts "loaded #{@students.count} from #{filename}"
   else
-    puts "Sorry #{filename} does not exist"
+    puts "Sorry #{filename} does not exist."
     exit
+    
   end
 end
 
 def add_students(name,cohort,hobbies,placeOfBirth, height)
  @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, placeOfBirth: placeOfBirth, height: height}
 end
+
 try_load_students
 interactive_menu
