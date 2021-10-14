@@ -9,7 +9,6 @@ def try_load_students
   else
     puts "Sorry #{filename} does not exist."
     exit
-    
   end
 end
 
@@ -75,7 +74,6 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish hit return"
-  
   name = STDIN.gets
   name = name[0,name.length-1]
   
@@ -84,7 +82,6 @@ def input_students
     cohort = STDIN.gets.chomp.to_s
   
     while true
-     
       if cohort == ""
         cohort = "november"
       end
@@ -110,8 +107,7 @@ def input_students
       if pob == ""
         pob = "n/a"
       end
-        
-      break
+        break
       end
     end
     
@@ -206,7 +202,6 @@ def nameShorterThan(short)
     puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
     end
   }
-
 end  
 
 def printbycohort(month)
