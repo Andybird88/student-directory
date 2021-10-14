@@ -1,59 +1,75 @@
 @students = [] #An empty array accesible by all methods
 
-def print_header
-  #First print a list of villans to screen.
-  puts "The students of Villans Academy".center(50)
-  puts "------------".center(50)
-end
-
-def print_student_list
-  length = @students.length
-  index = 0
-  if @students == []
-    puts "No students are cuurentlyy enrolled in the academy"
+def try_load_students
+  filename = ARGV.first
+  filename = "students.csv" if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "loaded #{@students.count} from #{filename}"
   else
-  while true
-    puts "#{index+1}. #{@students[index][:name]} (#{@students[index][:cohort]} cohort) Hobbies: #{@students[index][:hobbies]}, Place of Birth: #{@students[index][:placeOfBirth]}, Height: #{@students[index][:height]} cm"
-    index += 1 
-    length -= 1
-    if length == 0
-      break
-    end
-  end
+    puts "Sorry #{filename} does not exist."
+    exit
+    
   end
 end
 
-def printBeginWithLetter(letter)
-  puts ""
-  puts "Students begining with #{letter}:"
-  @students.each_with_index { |stud, index|
-    if "#{stud[:name]}"[0] == letter
-    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
-    end
-  }
+def interactive_menu
+  loop do
+    print_menu
+    process(STDIN.gets.chomp)
+  end
 end
 
-def nameShorterThan(short)
-  puts ""
-  puts "Students with a name shorter than #{short} characters:"
-  @students.each_with_index { |stud, index|
-    if "#{stud[:name]}".length < 12
-    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
-    end
-  }
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save a list of students to a csv file"
+  puts "4. Load a list of students from a csv file"
+  puts "5. Search Student by letter"
+  puts "6. Search Student names shorter than(number)"
+  puts "7. Search Student by cohort"
+  puts "9. Exit"
+end
 
-end  
-
-
-def print_footer
-  #Finally we print the total
-  puts ""
-  if @students.count == 1
-    puts "Overall, we have #{@students.count} great student"
-  else
-    puts "Overall, we have #{@students.count} great students"
+def process(selction)
+  case selction
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "3"
+      puts "please enter a file name followed by .csv"
+      fname = gets.chomp
+      save_students(fname)
+      puts "These students have been saved"
+      puts ""
+    when "4"
+      puts "Please enter a file name to load followed by its extension"
+      fname = gets.chomp
+      load_students(fname)
+      puts "students loaded from file"
+      puts ""
+    when "5"
+      letter = gets.chomp.capitalize
+      studentNameByLetter(letter)
+      puts ""
+    when "6"
+      short = gets.chomp
+      nameShorterThan(short)
+      puts ""
+    when "7"
+      month = gets.chomp
+      printbycohort(month)
+      puts ""
+    when "9"
+      exit
+    else
+      puts "I don't understand that action, try again"
   end
-  puts ""
+end
+
+def add_students(name,cohort,hobbies,placeOfBirth, height)
+ @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, placeOfBirth: placeOfBirth, height: height}
 end
 
 def input_students
@@ -111,61 +127,46 @@ def input_students
   end
 end
 
-
-def printbycohort(names, month)
-  names.each_with_index {|stud, index|
-    if stud[:cohort] == month.to_sym
-      puts "#{index+1}. #{names[index][:name]} (#{names[index][:cohort]} cohort) Hobbies: #{names[index][:hobbies]}, Place of Birth: #{names[index][:placeOfBirth]}, Height: #{names[index][:height]}cm"
-    end
-  }
+def print_header
+  #First print a list of villans to screen.
+  puts "The students of Villans Academy".center(50)
+  puts "------------".center(50)
 end
 
-def interactive_menu
-  loop do
-    print_menu
-    process(STDIN.gets.chomp)
+def print_student_list
+  length = @students.length
+  index = 0
+  if @students == []
+    puts "No students are cuurentlyy enrolled in the academy"
+  else
+  while true
+    puts "#{index+1}. #{@students[index][:name]} (#{@students[index][:cohort]} cohort) Hobbies: #{@students[index][:hobbies]}, Place of Birth: #{@students[index][:placeOfBirth]}, Height: #{@students[index][:height]} cm"
+    index += 1 
+    length -= 1
+    if length == 0
+      break
+    end
+  end
   end
 end
 
-def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to a csv file"
-  puts "4. Load the list from a csv file"
-  puts "9. Exit"
+def print_footer
+  #Finally we print the total
+  puts ""
+  if @students.count == 1
+    puts "Overall, we have #{@students.count} great student"
+  else
+    puts "Overall, we have #{@students.count} great students"
+  end
+  puts ""
 end
+
 
 def show_students
   print_header
   print_student_list
   print_footer
 end
-
-def process(selction)
-  case selction
-    when "1"
-      input_students
-    when "2"
-      show_students
-    when "3"
-      puts "please enter a file name followed by .csv"
-      fname = gets.chomp
-      save_students(fname)
-      puts "These students have been saved"
-      puts ""
-    when "4"
-      puts "Please enter a file name to load followed by its extension"
-      fname = gets.chomp
-      load_students(fname)
-      puts "students loaded from file"
-      puts ""
-    when "9"
-      exit
-    else
-      puts "I don't understand that action, try again"
-  end
-end
-
 
 def save_students(fname)
   File.open(fname, "w"){|file|
@@ -187,22 +188,36 @@ def load_students(filename = "students.csv")
   }
 end
 
-def try_load_students
-  filename = ARGV.first
-  filename = "students.csv" if filename.nil?
-  if File.exists?(filename)
-    load_students(filename)
-    puts "loaded #{@students.count} from #{filename}"
-  else
-    puts "Sorry #{filename} does not exist."
-    exit
-    
-  end
+def studentNameByLetter(letter)
+  puts ""
+  puts "Students begining with #{letter}:"
+  @students.each_with_index { |stud, index|
+    if "#{stud[:name]}"[0] == letter
+    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
+    end
+  }
 end
 
-def add_students(name,cohort,hobbies,placeOfBirth, height)
- @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, placeOfBirth: placeOfBirth, height: height}
+def nameShorterThan(short)
+  puts ""
+  puts "Students with a name shorter than #{short} characters:"
+  @students.each_with_index { |stud, index|
+    if "#{stud[:name]}".length < 12
+    puts "#{index+1}. #{stud[:name]} (#{stud[:cohort]} cohort)"
+    end
+  }
+
+end  
+
+def printbycohort(month)
+  @students.each_with_index {|stud, index|
+    if stud[:cohort] == month.to_sym
+      puts "#{index+1}. #{@students[index][:name]} (#{@students[index][:cohort]} cohort) Hobbies: #{@students[index][:hobbies]}, Place of Birth: #{@students[index][:placeOfBirth]}, Height: #{@students[index][:height]}cm"
+    end
+  }
 end
+
+
 
 try_load_students
 interactive_menu
