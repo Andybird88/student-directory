@@ -111,7 +111,7 @@ def input_students
       end
     end
     
-    add_students(name,cohort,hobbies,height,pob)
+    add_students(name,cohort,hobbies,pob,height)
   
     if @students.count == 1
     puts "We have #{@students.count} student."
